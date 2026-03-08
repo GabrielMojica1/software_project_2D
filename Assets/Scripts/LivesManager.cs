@@ -14,18 +14,24 @@ public class LivesManager : MonoBehaviour
 
     public void PlayerHit(Ship ship)
     {
-        if (ship.isInvincible) return; 
+        if (ship.isInvincible) return;
 
         ship.lives--;
-        LivesUI.instance.UpdateLives(ship.lives);
+
+        if (LivesUI.instance != null)
+            LivesUI.instance.UpdateLives(ship.lives);
 
         if (ship.lives <= 0)
         {
-            Destroy(ship.gameObject);
+            if (Application.isPlaying)
+                Destroy(ship.gameObject);
+            else
+                DestroyImmediate(ship.gameObject);
         }
         else
         {
-            StartCoroutine(Invincibility(ship));
+            if (Application.isPlaying)
+                StartCoroutine(Invincibility(ship));
         }
     }
 

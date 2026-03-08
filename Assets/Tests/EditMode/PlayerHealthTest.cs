@@ -4,19 +4,22 @@ using UnityEngine;
 public class PlayerHealthTest
 {
     private Ship ship;
+    private LivesManager livesManager;
 
     [SetUp]
     public void Setup()
     {
-        ship = new GameObject().AddComponent<Ship>();
-        ship.gameObject.AddComponent<ShipShooting>();
+        livesManager = new GameObject().AddComponent<LivesManager>();
+
+        ship = new GameObject().AddComponent<ShipShooting>().gameObject.AddComponent<Ship>();
         ship.lives = 3;
+        ship.isInvincible = false;
     }
 
     [Test]
     public void TakeDamage_NormalHit_ReducesLives()
     {
-        ship.TakeDamage();
+        livesManager.PlayerHit(ship);
 
         Assert.AreEqual(2, ship.lives);
     }
@@ -26,7 +29,7 @@ public class PlayerHealthTest
     {
         ship.lives = 2;
 
-        ship.TakeDamage();
+        livesManager.PlayerHit(ship);
 
         Assert.AreEqual(1, ship.lives);
         Assert.IsNotNull(ship);
@@ -37,7 +40,7 @@ public class PlayerHealthTest
     {
         ship.lives = 1;
 
-        ship.TakeDamage();
+        livesManager.PlayerHit(ship);
 
         Assert.IsTrue(ship == null);
     }
@@ -45,9 +48,9 @@ public class PlayerHealthTest
     [Test]
     public void TakeDamage_MoreHitsThanLives_ShipDies()
     {
-        ship.TakeDamage();
-        ship.TakeDamage();
-        ship.TakeDamage();
+        livesManager.PlayerHit(ship);
+        livesManager.PlayerHit(ship);
+        livesManager.PlayerHit(ship);
 
         Assert.IsTrue(ship == null);
     }
@@ -55,8 +58,18 @@ public class PlayerHealthTest
     [Test]
     public void TakeDamage_FullLives_ShipSurvives()
     {
-        ship.TakeDamage();
+        livesManager.PlayerHit(ship);
 
         Assert.IsNotNull(ship);
+    }
+
+    [Test]
+    public void TakeDamage_WhenInvincible_DoesNotReduceLives()
+    {
+        ship.isInvincible = true;
+
+        livesManager.PlayerHit(ship);
+
+        Assert.AreEqual(3, ship.lives);
     }
 }
