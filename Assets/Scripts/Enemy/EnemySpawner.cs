@@ -1,3 +1,4 @@
+using UnityEditorInternal;
 using UnityEngine;
 
 public class EnemySpawner : MonoBehaviour
@@ -12,7 +13,7 @@ public class EnemySpawner : MonoBehaviour
     private float spacingX = 2f;
 
     private int currentWave = 0;
-    private int enemyCount = 0;
+    public int enemyCount = 0;
 
     void Start()
     {
@@ -39,9 +40,17 @@ public class EnemySpawner : MonoBehaviour
         {
             float xPos = i * spacingX;
 
-            enemyFactory.CreateEnemy(EnemyTypes.Basic, new Vector3(xPos, topRowY, 0));
-            enemyFactory.CreateEnemy(EnemyTypes.Fast, new Vector3(xPos, middleRowY, 0));
-            enemyFactory.CreateEnemy(EnemyTypes.Tank, new Vector3(xPos, bottomRowY, 0));
+            GameObject enemy = enemyFactory.CreateEnemy(EnemyTypes.Basic, new Vector3(xPos, topRowY, 0));
+            EnemyStats stats = enemy.GetComponent<EnemyStats>();
+            stats.spawner = this;
+
+            enemy = enemyFactory.CreateEnemy(EnemyTypes.Fast, new Vector3(xPos, middleRowY, 0));
+            stats = enemy.GetComponent<EnemyStats>();
+            stats.spawner = this;
+
+            enemy = enemyFactory.CreateEnemy(EnemyTypes.Tank, new Vector3(xPos, bottomRowY, 0));
+            stats = enemy.GetComponent<EnemyStats>();
+            stats.spawner = this;
 
             enemyCount += 3;
         }

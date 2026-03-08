@@ -11,6 +11,7 @@ public class Ship : MonoBehaviour
     [HideInInspector] public float cooldownTimer = 0f;
 
     private IMovementState currentState;
+    private ShipShooting shooting;
 
     // Screen boundaries (will use later)
     private float xMin, xMax, yMin, yMax;
@@ -18,6 +19,7 @@ public class Ship : MonoBehaviour
     private void Start()
     {
         currentState = new NormalMovement(this);
+        shooting = GetComponent<ShipShooting>();
 
         // Get the screen bounds to use for clamping method
         Camera cam = Camera.main;
@@ -44,6 +46,9 @@ public class Ship : MonoBehaviour
             currentState.HandleUp();
         if (Input.GetKeyDown(KeyCode.Space))
             currentState.HandleBoost();
+        if (Input.GetKeyDown(KeyCode.Return))
+            shooting.Shoot();
+            
 
         currentState.UpdateState();
 
