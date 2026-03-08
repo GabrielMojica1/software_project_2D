@@ -1,8 +1,7 @@
 using UnityEngine;
 
-public class Events
-{
-    // events we want to track go in here
+namespace Events
+{   // events we want to track go in here
     // I made some examples, but whichever events 
     // we want to track can be added as needed
     public struct EnemyKilledEvent
