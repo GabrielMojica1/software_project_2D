@@ -1,9 +1,10 @@
 using UnityEngine;
 
-public class TankEnemy : MonoBehaviour
+public class EnemyStats : MonoBehaviour
 {
     public int maxHealth = 10;
     public float moveSpeed = 1.5f;
+    public float reloadSpeed = 1f;
 
     private int currentHealth;
 
@@ -37,6 +38,4 @@ public class TankEnemy : MonoBehaviour
         Destroy(gameObject);
         //From here we can add the +1 to the stat page (?)
     }
-
-    //*create code for the shooting
 }
