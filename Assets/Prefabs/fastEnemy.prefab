@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 386349069590076004}
   - component: {fileID: -7377785783535340998}
   - component: {fileID: 4435167124594702732}
+  - component: {fileID: -1217435743335730551}
   m_Layer: 0
   m_Name: fastEnemy
   m_TagString: Untagged
@@ -102,9 +103,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dff16a6dfa032e44c9ca6522b4050eae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 10
-  moveSpeed: 1.5
-  reloadSpeed: 3
+  maxHealth: 3
+  moveSpeed: 4
+  reloadSpeed: 4
+  spawner: {fileID: 0}
 --- !u!114 &-7377785783535340998
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -164,3 +166,17 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 0.4, y: 0.27}
   m_EdgeRadius: 0
+--- !u!114 &-1217435743335730551
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4915718066192082849}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 11b5ac95912c41b44bce2a979d98364d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  xMin: -11
+  xMax: 11

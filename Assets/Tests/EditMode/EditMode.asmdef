@@ -4,7 +4,10 @@
     "references": [
         "UnityEngine.TestRunner",
         "UnityEditor.TestRunner",
-        "Scripts"
+        "Scripts",
+        "Enemies",
+        "Stats",
+        "Ship"
     ],
     "includePlatforms": [
         "Editor"

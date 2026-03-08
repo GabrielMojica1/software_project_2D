@@ -7,13 +7,24 @@ public class EnemyBullet : MonoBehaviour
     void Update()
     {
         transform.Translate(Vector3.down * bulletSpeed * Time.deltaTime);
-        selfDestroy();
+        SelfDestroy();
     }
 
-    private void selfDestroy()
+    private void SelfDestroy()
     {
-        if(transform.position.y < -5)
+        if (transform.position.y < -5)
         {
+            Destroy(gameObject);
+        }
+    }
+
+    void OnTriggerEnter2D(Collider2D other)
+    {
+        Ship ship = other.GetComponent<Ship>();
+
+        if (ship != null)
+        {
+            ship.TakeDamage();
             Destroy(gameObject);
         }
     }
