@@ -31,15 +31,31 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
-        State = GameState.Menu;
+        SetState(GameState.Menu);
     }
 
     public void SetState(GameState newState)
     {
-        State = newState;
-        // Handle state change logic here
+        switch (newState)
+        {
+            case GameState.Menu:
+                
+                break;
+            case GameState.Playing:
+                // Start the game, load level, etc.
+                break;
+            case GameState.Paused:
+                // Pause the game, show pause menu, etc.
+                break;
+            case GameState.GameOver:
+                // Show game over screen, reset game, etc.
+                break;
+            case GameState.LevelComplete:
+                // Show level complete screen, load next level, etc.
+                break;
+        }
     }
 
     // TODO: add methods for starting game, pausing, resuming, etc.
-    
+
 }
