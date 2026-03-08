@@ -6,23 +6,24 @@ public class Ship : MonoBehaviour
     public float boostMultiplier = 3f;
     public float boostDuration = 0.2f;
     public float cooldownDuration = 1f;
+    public int lives = 3;
 
     [HideInInspector] public float boostTimer = 0f;
     [HideInInspector] public float cooldownTimer = 0f;
 
     private IMovementState currentState;
+    private ShipShooting shooting;
 
-    // Screen boundaries (will use later)
     private float xMin, xMax, yMin, yMax;
 
     private void Start()
     {
         currentState = new NormalMovement(this);
+        shooting = GetComponent<ShipShooting>();
 
-        // Get the screen bounds to use for clamping method
         Camera cam = Camera.main;
         Vector3 bottomLeft = cam.ViewportToWorldPoint(new Vector3(0, 0, cam.nearClipPlane));
-        Vector3 topRight   = cam.ViewportToWorldPoint(new Vector3(1, 1, cam.nearClipPlane));
+        Vector3 topRight = cam.ViewportToWorldPoint(new Vector3(1, 1, cam.nearClipPlane));
 
         xMin = bottomLeft.x;
         yMin = bottomLeft.y;
@@ -44,6 +45,8 @@ public class Ship : MonoBehaviour
             currentState.HandleUp();
         if (Input.GetKeyDown(KeyCode.Space))
             currentState.HandleBoost();
+        if (Input.GetKeyDown(KeyCode.Return))
+            shooting.Shoot();
 
         currentState.UpdateState();
 
@@ -59,16 +62,33 @@ public class Ship : MonoBehaviour
     {
         float margin = 0.4f;
         Vector3 pos = transform.position;
-        
+
         pos.x = Mathf.Clamp(pos.x, xMin + margin, xMax - margin);
 
-        float upperLimit = yMin + (yMax - yMin) * 0.25f; 
+        float upperLimit = yMin + (yMax - yMin) * 0.25f;
         pos.y = Mathf.Clamp(pos.y, yMin + margin, upperLimit);
 
         transform.position = pos;
     }
 
-    public void SetState(IMovementState newState)//State pattern implementation, allows for easy switching between movement states
+    public void TakeDamage()
+    {
+        lives--;
+
+        if (lives <= 0)
+        {
+            if (Application.isPlaying)
+            {
+                Destroy(gameObject);
+            }
+            else
+            {
+                DestroyImmediate(gameObject);
+            }
+        }
+    }
+
+    public void SetState(IMovementState newState)
     {
         currentState = newState;
     }
@@ -79,7 +99,7 @@ public class Ship : MonoBehaviour
         transform.Translate(direction * speed * Time.deltaTime);
     }
 
-    public void Turn(float amount)//Just in case we need to add turning
+    public void Turn(float amount)
     {
         transform.Rotate(Vector3.forward, amount);
     }
