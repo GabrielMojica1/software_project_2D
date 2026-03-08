@@ -13,7 +13,8 @@ public class Ship : MonoBehaviour
 
     private IMovementState currentState;
     private ShipShooting shooting;
-
+    [HideInInspector] public bool isInvincible = false;
+    public SpriteRenderer shipSprite; 
     private float xMin, xMax, yMin, yMax;
 
     private void Start()
@@ -73,19 +74,7 @@ public class Ship : MonoBehaviour
 
     public void TakeDamage()
     {
-        lives--;
-
-        if (lives <= 0)
-        {
-            if (Application.isPlaying)
-            {
-                Destroy(gameObject);
-            }
-            else
-            {
-                DestroyImmediate(gameObject);
-            }
-        }
+        LivesManager.instance.PlayerHit(this);
     }
 
     public void SetState(IMovementState newState)
