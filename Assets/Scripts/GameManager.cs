@@ -39,10 +39,11 @@ public class GameManager : MonoBehaviour
         switch (newState)
         {
             case GameState.Menu:
-                
+                SceneManager.LoadScene("MainMenu");
                 break;
             case GameState.Playing:
-                // Start the game, load level, etc.
+                //replace with actual scene name when we have one
+                SceneManager.LoadScene("SampleScene");
                 break;
             case GameState.Paused:
                 // Pause the game, show pause menu, etc.
