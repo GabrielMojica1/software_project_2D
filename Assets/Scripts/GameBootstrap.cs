@@ -5,7 +5,7 @@ public class GameBootstrap : MonoBehaviour
     void Awake()
     {
         CreateIfMissing<GameManager>();
-        // CreateIfMissing<StatsTracker>();
+        CreateIfMissing<StatsTracker>();
     }
 
     void CreateIfMissing<T>() where T : MonoBehaviour

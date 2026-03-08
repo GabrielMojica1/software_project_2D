@@ -3,6 +3,22 @@ using Events;
 
 public class StatsTracker : MonoBehaviour
 {
+
+    public static StatsTracker Instance { get; private set; }
+
+     void Awake()
+    {
+        if (Instance == null)
+        {
+            Instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+    }
+
     public int enemiesKilled;
     public int damageDealt;
     public int itemsCollected;
