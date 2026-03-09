@@ -88,6 +88,11 @@ public class Ship : MonoBehaviour, IMockShip
         transform.Translate(direction * speed * Time.deltaTime);
     }
 
+    public IMovementState GetCurrentState() 
+    {
+        return currentState;
+    }
+
     public void Turn(float amount)
     {
         transform.Rotate(Vector3.forward, amount);

@@ -12,7 +12,7 @@ public class GameManager : MonoBehaviour
         Playing,
         Paused,
         GameOver,
-        LevelComplete
+        GameComplete
     }
 
     public GameState State { get; private set; }
@@ -33,6 +33,7 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         SetState(GameState.Menu);
+        EventBus.Subscribe<GameCompletedEvent>(OnGameCompleted);
     }
 
     public void SetState(GameState newState)
@@ -57,8 +58,9 @@ public class GameManager : MonoBehaviour
                 SetTimeScale(0f);
                 SceneManager.LoadScene("Assets/Scenes/GameOverScene.unity");
                 break;
-            case GameState.LevelComplete:
-
+            case GameState.GameComplete:
+                SetTimeScale(0f);
+                SceneManager.LoadScene("Assets/Scenes/GameCompleteScene.unity");
                 break;
         }
     }
@@ -89,5 +91,10 @@ public class GameManager : MonoBehaviour
         {
             SetState(GameState.Playing);
         }
+    }
+
+    public void OnGameCompleted(GameCompletedEvent e)
+    {
+        SetState(GameState.GameComplete);
     }
 }

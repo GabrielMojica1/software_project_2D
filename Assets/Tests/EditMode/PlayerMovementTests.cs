@@ -138,86 +138,77 @@ public class PlayerMovementTests
         // Arrange
         realShip.cooldownTimer = 0f;
         var state = new NormalMovement(realShip);
-        
-        // Gets the private currentState field using BlindingFlags
-        var stateField = typeof(Ship).GetField("currentState", 
-            BindingFlags.NonPublic | BindingFlags.Instance);
-        var oldState = stateField.GetValue(realShip);
-        
+    
+        var oldState = realShip.GetCurrentState();
+    
         // Act
         state.HandleBoost();
-        
+    
         // Assert
-        var newState = stateField.GetValue(realShip);
+        var newState = realShip.GetCurrentState();
         Assert.AreNotEqual(oldState, newState);
         Assert.IsTrue(newState.GetType().Name == "Boosting");
     }
 
-    
-        [Test]
+    [Test]
     public void Boosting_Moves_FasterThanNormal()//tests that boosting accurately increases speed
     {
         // Arrange
         realShip.transform.position = Vector3.zero;
         Vector3 direction = new Vector3(1, 0, 0);
-    
+
         // Gets normal movement distance
         realShip.MoveShip(direction, realShip.baseSpeed); 
         float normalX = realShip.transform.position.x;
-    
-        // Reset position
+
+        // Reset the position
         realShip.transform.position = Vector3.zero;
-    
+
         // Act
         float boostedSpeed = realShip.baseSpeed * realShip.boostMultiplier; 
         realShip.MoveShip(direction, boostedSpeed);
         float boostedX = realShip.transform.position.x;
-    
+
         // Assert
         Assert.Greater(boostedX, normalX * 2.9f); 
         Assert.Less(boostedX, normalX * 3.1f);
     }
 
-   
     [Test]
     public void Overheated_UpdateState_WhenCooldownEnds_ReturnsToNormal()//tests cooldown functionality
     {
         // Arrange
         realShip.cooldownTimer = 0f;
         realShip.SetState(new Overheated(realShip));
-        
-        var stateField = typeof(Ship).GetField("currentState", BindingFlags.NonPublic | BindingFlags.Instance);
+    
         var state = new Overheated(realShip);
-        
+    
         // Act
         state.UpdateState();
-        
+    
         // Assert
-        var newState = stateField.GetValue(realShip);
+        var newState = realShip.GetCurrentState(); 
         Assert.IsTrue(newState.GetType().Name == "NormalMovement");
     }
 
-    
     [Test]
     public void NormalMovement_HandleBoost_WithCooldown_DoesNothing()//tests to see if no boosting during cooldown
     {
         // Arrange
         realShip.cooldownTimer = 0.5f;
-        var stateField = typeof(Ship).GetField("currentState", BindingFlags.NonPublic | BindingFlags.Instance);
-        var oldState = stateField.GetValue(realShip);
-        
+        var oldState = realShip.GetCurrentState(); 
+    
         var state = new NormalMovement(realShip);
-        
+    
         // Act
         state.HandleBoost();
-        
+    
         // Assert
-        var newState = stateField.GetValue(realShip);
+        var newState = realShip.GetCurrentState(); 
         Assert.AreEqual(oldState, newState);
     }
 }
 
-// Helper test class for Boosting
 public class TestableBoosting : Boosting
 {
     private Ship ship;
