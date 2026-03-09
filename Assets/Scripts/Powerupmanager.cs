@@ -1,11 +1,11 @@
 using UnityEngine;
 using System.Collections.Generic;
 
-public class Powerupmanager : MonoBehaviour
+public class PowerupManager : MonoBehaviour
 {
-    public static Powerupmanager instance;
+    public static PowerupManager instance;
 
-    public List<GameObject> powerupPrefabs;
+    public List<PowerupType> availablePowerups;
 
     private void Awake()
     {
@@ -19,18 +19,16 @@ public class Powerupmanager : MonoBehaviour
         }
     }
 
-    public void SpawnPowerup(Vector3 spawnPosition)
+    public PowerupType GetRandomPowerupType()
     {
-        if(powerupPrefabs.count == 0)
+        if(availablePowerups.Count == 0)
         {
-            Debug.Log("powerup prefabs list empty");
-            return;
+            Debug.Log("no avaialable powerups");
+            return PowerupType.Damage;
         }
 
-        int randomIndex = Random.Range(0, powerupPrefabs.Count);
+        int randomIndex = Random.Range(0, availablePowerups.Count);
 
-        GameObject randomPowerupPrefab = powerupPrefabs[randomIndex];
-
-        Instantiate(randomPowerupPrefab, spawnPosition, Quaternion.identity);
+        return availablePowerups[randomIndex];
     }
 }

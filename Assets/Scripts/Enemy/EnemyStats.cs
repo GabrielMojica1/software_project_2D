@@ -29,12 +29,15 @@ public class EnemyStats : MonoBehaviour
     {
         if(Random.value <= powerupDropChance)
         {
-            if(PowerupManager.instance != null)
+            ShipShooting playerShooting = FindObjectOfType<ShipShooting>();
+
+            if(playerShooting != null && PowerupManager.instance != null)
             {
-                Powerupmanager.instance.SpawnPowerup(transform.position);
+                PowerupType randomType = PowerupManager.instance.GetRandomPowerupType();
+                playerShooting.ApplyPowerup(randomType);
             }
         }
-        
+
         if (spawner != null)
         {
             spawner.enemyCount--;

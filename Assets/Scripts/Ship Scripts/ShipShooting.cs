@@ -8,12 +8,14 @@ public class ShipShooting : MonoBehaviour
     public void Start()
     {
         currentWeapon = new BaseWeapon();
-        fireCooldownTimer = currentWeapon.GetCooldown();
     }
 
     public void Update()
     {
-        fireCooldownTimer -= Time.deltaTime;
+        if(fireCooldownTimer > 0)
+        {
+            fireCooldownTimer -= Time.deltaTime;
+        }
     }
     public void Shoot()
     {
@@ -23,7 +25,7 @@ public class ShipShooting : MonoBehaviour
             fireCooldownTimer = currentWeapon.GetCooldown();
         }
     }
-    public void ApplyPowerup(int powerupType)
+    public void ApplyPowerup(PowerupType powerupType)
     {
         switch (powerupType)
         {
