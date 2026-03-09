@@ -1,4 +1,5 @@
 using UnityEngine;
+using Events;
 
 public class EnemyStats : MonoBehaviour
 {
@@ -22,6 +23,8 @@ public class EnemyStats : MonoBehaviour
         {
             Die();
         }
+
+        EventBus.Publish(new DamageDealtEvent(damage));
     }
 
     public void Die()
@@ -42,5 +45,7 @@ public class EnemyStats : MonoBehaviour
         //This is so that the test cases dont complain ^^
 
         //From here we can add the +1 to the stat page (?)
+        EventBus.Publish(new EnemyKilledEvent());
+
     }
 }
