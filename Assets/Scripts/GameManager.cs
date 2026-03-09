@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using Events;
 
 public class GameManager : MonoBehaviour
 {
@@ -37,6 +38,8 @@ public class GameManager : MonoBehaviour
     public void SetState(GameState newState)
     {
         State = newState;
+        SetTimeScale(1f); // Reset time scale on state change
+        EventBus.Publish(new Events.GameStateChangedEvent(newState));
 
         // TODO: add & finalize other logic
         switch (newState)
@@ -45,14 +48,14 @@ public class GameManager : MonoBehaviour
                 SceneManager.LoadScene("MainMenu");
                 break;
             case GameState.Playing:
-                //replace with actual scene name when we have one
-                SceneManager.LoadScene("SampleScene");
+                // no additional logic for now
                 break;
             case GameState.Paused:
-
+                SetTimeScale(0f);
                 break;
             case GameState.GameOver:
-
+                SetTimeScale(0f);
+                // SceneManager.LoadScene("GameOverScene");
                 break;
             case GameState.LevelComplete:
 
@@ -63,5 +66,28 @@ public class GameManager : MonoBehaviour
     public void StartGame()
     {
         SetState(GameState.Playing);
+        //replace with actual scene name when we have one
+        SceneManager.LoadScene("SampleScene");
+    }
+
+    private static void SetTimeScale(float scale)
+    {
+        Time.timeScale = scale;
+    }
+
+    public void PauseGame()
+    {
+        if (State == GameState.Playing)
+        {
+            SetState(GameState.Paused);
+        }
+    }
+
+    public void ResumeGame()
+    {
+        if (State == GameState.Paused)
+        {
+            SetState(GameState.Playing);
+        }
     }
 }
