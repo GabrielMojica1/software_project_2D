@@ -2,9 +2,9 @@ using UnityEngine;
 
 public class Boosting : IMovementState
 {
-    private Ship ship;
+    private IMockShip ship;
 
-    public Boosting(Ship ship)
+    public Boosting(IMockShip ship)
     {
         this.ship = ship;
     }

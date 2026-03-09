@@ -43,4 +43,14 @@ namespace Events
             LevelNumber = level;
         }
     }
+
+    public struct GameStateChangedEvent
+    {
+        public GameManager.GameState NewState;
+
+        public GameStateChangedEvent(GameManager.GameState newState)
+        {
+            NewState = newState;
+        }
+    }
 }

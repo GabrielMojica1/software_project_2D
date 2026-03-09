@@ -2,9 +2,9 @@ using UnityEngine;
 
 public class NormalMovement : IMovementState
 {
-    private Ship ship;
+    private IMockShip ship;
 
-    public NormalMovement(Ship ship)
+    public NormalMovement(IMockShip ship)
     {
         this.ship = ship;
     }

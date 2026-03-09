@@ -43,11 +43,13 @@ public class StatsTracker : MonoBehaviour
     void OnEnemyKilled(EnemyKilledEvent e)
     {
         enemiesKilled++;
+        Debug.Log("Enemy killed! Total: " + enemiesKilled);
     }
 
     void OnDamageDealt(DamageDealtEvent e)
     {
         damageDealt += e.Amount;
+        Debug.Log("Damage dealt! Total: " + damageDealt);
     }
 
     void OnItemCollected(ItemCollectedEvent e)

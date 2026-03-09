@@ -1,15 +1,15 @@
 using UnityEngine;
 
-public class Ship : MonoBehaviour
+public class Ship : MonoBehaviour, IMockShip
 {
-    public float baseSpeed = 5f;
-    public float boostMultiplier = 3f;
-    public float boostDuration = 0.2f;
-    public float cooldownDuration = 1f;
-    public int lives = 3;
+    public float baseSpeed { get; set; } = 5f;
+    public float boostMultiplier { get; set; } = 3f;
+    public float boostDuration { get; set; } = 0.2f;
+    public float cooldownDuration { get; set; } = 1f;
+    public int lives { get; set; } = 3;
 
-    [HideInInspector] public float boostTimer = 0f;
-    [HideInInspector] public float cooldownTimer = 0f;
+    [HideInInspector] public float boostTimer { get; set; } = 0f;
+    [HideInInspector] public float cooldownTimer { get; set; } = 0f;
 
     private IMovementState currentState;
     private ShipShooting shooting;
