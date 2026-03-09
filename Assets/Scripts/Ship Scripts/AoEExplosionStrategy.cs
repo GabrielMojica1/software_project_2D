@@ -1,3 +1,5 @@
+using UnityEngine;
+using System.Collections.Generic;
 public class AoEExplosionStrategy : IHitStrategy
 {
     public bool Execute(Collider2D enemy, int dmgAmt)
@@ -9,7 +11,7 @@ public class AoEExplosionStrategy : IHitStrategy
 
         foreach (Collider2D hitEnemy in hitColliders)
         {
-            GameObject hitStats = hitEnemy.getComponent<EnemyStats>();
+            EnemyStats hitStats = hitEnemy.GetComponent<EnemyStats>();
             if (hitStats != null)
             {
                 hitEnemy.GetComponent<EnemyStats>().TakeDamage(dmgAmt);

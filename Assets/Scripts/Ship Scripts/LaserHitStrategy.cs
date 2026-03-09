@@ -1,3 +1,5 @@
+using UnityEngine;
+using System.Collections.Generic;
 public class LaserHitStrategy : IHitStrategy
 {
     public bool Execute(Collider2D enemy, int dmgAmt)

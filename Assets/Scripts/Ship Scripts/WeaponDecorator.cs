@@ -1,3 +1,5 @@
+using UnityEngine;
+using System.Collections.Generic;
 public abstract class WeaponDecorator : IWeapon
 {
     protected IWeapon Weapon;
@@ -6,21 +8,20 @@ public abstract class WeaponDecorator : IWeapon
         Weapon = weapon;
     }
 
-    int GetCurDmg()
+    public virtual int GetCurDmg()
     {
-        Weapon.GetCurDmg();  
+        return Weapon.GetCurDmg();  
     }
-    float GetCooldown()
+    public virtual float GetCooldown()
     {
-        Weapon.GetCooldown();
+        return Weapon.GetCooldown();
     }
-    List<GameObject> Fire(Vector3 spawnPos, GameObject bulletPrefab)
+    public virtual List<GameObject> Fire(Vector3 spawnPos, GameObject bulletPrefab)
     {
-        Weapon.Fire(spawnPos, bulletPrefab);
+        return Weapon.Fire(spawnPos, bulletPrefab);
     }
-    IHitStrategy GetHitStrategy()
+    public virtual IHitStrategy GetHitStrategy()
     {
-        Weapon.GetHitStrategy();
+        return Weapon.GetHitStrategy();
     }
-
 }

@@ -1,9 +1,10 @@
 using UnityEngine;
-
+using System.Collections.Generic;
 public class PlayerBullet : MonoBehaviour
 {
     public float bulletSpeed = 8f;
     public int damage = 1;
+    public IHitStrategy currentStrategy;
 
     void Update()
     {
@@ -17,8 +18,10 @@ public class PlayerBullet : MonoBehaviour
 
         if (enemy != null)
         {
-            enemy.TakeDamage(damage);
-            Destroy(gameObject);
+            if(currentStrategy.Execute(other, damage))
+            {
+                Destroy(gameObject);
+            }
         }
     }
 
