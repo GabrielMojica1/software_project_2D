@@ -31,7 +31,7 @@ public class EnemySpawner : MonoBehaviour
         else if (enemyCount == 0 && currentWave == 3)
         {
             Debug.Log("All waves cleared");
-            EventBus.Publish(new GameCompletedEvent());
+            EventBus.Publish(new GameCompletedEvent(0 /*stops compiler from complaining*/));
         }
     }
 
