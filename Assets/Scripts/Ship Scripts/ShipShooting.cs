@@ -27,6 +27,7 @@ public class ShipShooting : MonoBehaviour
     }
     public void ApplyPowerup(PowerupType powerupType)
     {
+        Debug.Log("Applied Powerup :" + powerupType);
         switch (powerupType)
         {
             case PowerupType.Damage:
