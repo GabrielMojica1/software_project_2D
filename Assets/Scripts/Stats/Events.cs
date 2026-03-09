@@ -53,4 +53,9 @@ namespace Events
             NewState = newState;
         }
     }
+
+    public struct GameCompletedEvent
+    {
+        public GameCompletedEvent(int foo /*stops compiler from complaining*/) { }
+    }
 }
