@@ -6,6 +6,7 @@ public class EnemyStats : MonoBehaviour
     public float moveSpeed = 1.5f;
     public float reloadSpeed = 1f;
 
+    public float powerupDropChance = 0.15f;
     public int currentHealth;
     public EnemySpawner spawner;
 
@@ -26,6 +27,14 @@ public class EnemyStats : MonoBehaviour
 
     public void Die()
     {
+        if(Random.value <= powerupDropChance)
+        {
+            if(PowerupManager.instance != null)
+            {
+                Powerupmanager.instance.SpawnPowerup(transform.position);
+            }
+        }
+        
         if (spawner != null)
         {
             spawner.enemyCount--;

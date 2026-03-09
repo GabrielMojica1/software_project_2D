@@ -27,11 +27,20 @@ public class ShipShooting : MonoBehaviour
     {
         switch (powerupType)
         {
-            case 1:
+            case PowerupType.Damage:
                 currentWeapon = new DamageBuffDecorator(currentWeapon);
                 break;
-            case 2:
+            case PowerupType.FireRate:
                 currentWeapon = new FireRateBuffDecorator(currentWeapon);
+                break;
+            case PowerupType.MultiShot:
+                currentWeapon = new MultiShotDecorator(currentWeapon);
+                break;
+            case PowerupType.Laser:
+                currentWeapon = new LaserDecorator(currentWeapon);
+                break;
+            case PowerupType.AoE:
+                currentWeapon = new AoEDecorator(currentWeapon);
                 break;
         }
     }
