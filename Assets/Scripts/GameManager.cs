@@ -55,7 +55,7 @@ public class GameManager : MonoBehaviour
                 break;
             case GameState.GameOver:
                 SetTimeScale(0f);
-                // SceneManager.LoadScene("GameOverScene");
+                SceneManager.LoadScene("Assets/Scenes/GameOverScene.unity");
                 break;
             case GameState.LevelComplete:
 

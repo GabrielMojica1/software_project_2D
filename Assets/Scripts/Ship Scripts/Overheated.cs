@@ -2,9 +2,9 @@ using UnityEngine;
 
 public class Overheated : IMovementState
 {
-    private Ship ship;
+    private IMockShip ship;
 
-    public Overheated(Ship ship)
+    public Overheated(IMockShip ship)
     {
         this.ship = ship;
     }

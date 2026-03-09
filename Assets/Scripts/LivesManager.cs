@@ -13,27 +13,34 @@ public class LivesManager : MonoBehaviour
     }
 
     public void PlayerHit(Ship ship)
+{
+    if (ship.isInvincible) return;
+
+    ship.lives--;
+
+    if (LivesUI.instance != null)
+        LivesUI.instance.UpdateLives(ship.lives);
+
+    if (ship.lives <= 0)
     {
-        if (ship.isInvincible) return;
-
-        ship.lives--;
-
-        if (LivesUI.instance != null)
-            LivesUI.instance.UpdateLives(ship.lives);
-
-        if (ship.lives <= 0)
+        Debug.Log("Player has died. Lives: " + ship.lives);
+        
+        if (GameManager.Instance != null)
         {
-            if (Application.isPlaying)
-                Destroy(ship.gameObject);
-            else
-                DestroyImmediate(ship.gameObject);
+            GameManager.Instance.SetState(GameManager.GameState.GameOver);
         }
+        
+        if (Application.isPlaying)
+            Destroy(ship.gameObject);
         else
-        {
-            if (Application.isPlaying)
-                StartCoroutine(Invincibility(ship));
-        }
+            DestroyImmediate(ship.gameObject);
     }
+    else
+    {
+        if (Application.isPlaying)
+            StartCoroutine(Invincibility(ship));
+    }
+}
 
     IEnumerator Invincibility(Ship ship)
     {
@@ -50,4 +57,5 @@ public class LivesManager : MonoBehaviour
         sr.enabled = true;
         ship.isInvincible = false;
     }
+
 }
