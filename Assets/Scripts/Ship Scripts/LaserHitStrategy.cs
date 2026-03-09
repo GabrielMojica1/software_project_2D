@@ -1,8 +1,8 @@
-class LaserHitStrategy : IHitStrategy
+public class LaserHitStrategy : IHitStrategy
 {
-    boolean Execute(Collider2D enemy, int dmgAmt)
+    public bool Execute(Collider2D enemy, int dmgAmt)
     {
-        TakeDamage(GetComponent(enemy).EnemyStats, dmgAmt);
+        enemy.GetComponent<EnemyStats>().TakeDamage(dmgAmt);
         return false;
     }
 }
