@@ -1,5 +1,6 @@
 using UnityEditorInternal;
 using UnityEngine;
+using Events;
 
 public class EnemySpawner : MonoBehaviour
 {
@@ -25,10 +26,12 @@ public class EnemySpawner : MonoBehaviour
         if (enemyCount == 0 && currentWave > 0 && currentWave < 3)
         {
             SpawnWave();
+            EventBus.Publish(new LevelCompletedEvent(currentWave));
         }
         else if (enemyCount == 0 && currentWave == 3)
         {
             Debug.Log("All waves cleared");
+            EventBus.Publish(new GameCompletedEvent(0 /*stops compiler from complaining*/));
         }
     }
 
