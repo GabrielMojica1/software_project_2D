@@ -1,4 +1,4 @@
-	using System;
+using System;
 using System.Collections;
 using System.Reflection;
 using NUnit.Framework;
@@ -6,6 +6,15 @@ using NSubstitute;
 using UnityEngine;
 using Events;
 
+// Alex
+// Tests for StatsTracker and related event classes.
+// I chose to also write these as EditMode tests to avoid needing a full PlayMode setup, since we're mostly testing logic and event handling rather than actual gameplay.
+// We mainly test basic functionality, as there aren't many edge cases. Primarily, we need to ensure that the StatsTracker correctly updates its counters when events are published, and that it properly subscribes/unsubscribes from the EventBus.
+// To ensure that works as intended, we also test the EventBus itself and the event classes to confirm that they store data correctly and subscriptions work as intended.
+// Each event class has a simple test to confirm it stores the necessary values, alhtough this isn't used in actual gameplay.
+// We test EventBus for pasic funcitonality: Subscribe() correctly subscribes, Unsubscribe() correctly unsubscribes, and Publish() I. Publishes an event, and II. correctly invokes all subscribers for a given event type.
+// The StatsTracker tests confirm that when events are published, the appropriate counters are updated, and that when the StatsTracker is disabled, it no longer receives events.
+// Since StatsTracker is a singleton, we delete and recreate the instance for each test to avoid interference. We also clear EventBus subscribers fo rthe same reason.
 public class StatsTests
 {
 	private GameObject _trackerObject;
