@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections.Generic;
+using Events;
 public class ShipShooting : MonoBehaviour
 {
     public GameObject bulletPrefab;
@@ -28,6 +29,7 @@ public class ShipShooting : MonoBehaviour
     public void ApplyPowerup(PowerupType powerupType)
     {
         Debug.Log("Applied Powerup :" + powerupType);
+        EventBus.Publish(new ItemCollectedEvent(powerupType.ToString()));
         switch (powerupType)
         {
             case PowerupType.Damage:
@@ -37,7 +39,6 @@ public class ShipShooting : MonoBehaviour
                 currentWeapon = new FireRateBuffDecorator(currentWeapon);
                 break;
             case PowerupType.MultiShot:
-                currentWeapon = new MultiShotDecorator(currentWeapon);
                 break;
             case PowerupType.Laser:
                 currentWeapon = new LaserDecorator(currentWeapon);

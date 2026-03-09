@@ -7,7 +7,7 @@ public class EnemyStats : MonoBehaviour
     public float moveSpeed = 1.5f;
     public float reloadSpeed = 1f;
 
-    public float powerupDropChance = 1.1f;
+    public float powerupDropChance = 0.15f;
     public int currentHealth;
     public EnemySpawner spawner;
 
